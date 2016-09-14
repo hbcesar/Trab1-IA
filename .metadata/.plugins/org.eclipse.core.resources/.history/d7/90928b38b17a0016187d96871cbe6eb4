@@ -1,0 +1,15 @@
+package br.com.ceso.jmetal;
+
+import jmetal.core.Problem;
+import jmetal.core.Solution;
+import jmetal.util.JMException;
+
+public class SumSquareProblem extends Problem {
+
+	@Override
+	public void evaluate(Solution solution) throws JMException {
+		// TODO Auto-generated method stub
+
+	}
+
+}

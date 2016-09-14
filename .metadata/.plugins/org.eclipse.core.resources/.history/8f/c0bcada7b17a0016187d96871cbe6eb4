@@ -1,0 +1,28 @@
+package br.com.ceso.jmetal;
+
+import jmetal.core.Problem;
+import jmetal.core.Solution;
+import jmetal.util.JMException;
+
+public class SumSquareProblem extends Problem {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2987824473637836202L;
+	
+	public SumSquareProblem(String solutionType, Integer numberOfVariables){
+		numberOfVariables_ = numberOfVariables;
+		numberOfObjectives_ = 1;
+		numberOfConstraints_ = 0;
+		problemName_ = "SumSquare";
+		
+	}
+
+	@Override
+	public void evaluate(Solution solution) throws JMException {
+		// TODO Auto-generated method stub
+
+	}
+
+}
