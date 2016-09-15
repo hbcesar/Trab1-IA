@@ -24,27 +24,40 @@ public class HillClimbing extends Algorithm {
 		int evaluations = 0;
 		
 		//Read the params
-		maxEvaluations = ((Integer) this.getInputParameter("maxEvaluations")).intValue();
-		gamma = ((Double) this.getInputParameter("gamma")).doubleValue();
+		// maxEvaluations = ((Integer) this.getInputParameter("maxEvaluations")).intValue();
+		// gamma = ((Double) this.getInputParameter("gamma")).doubleValue();
+		maxEvaluations = (int) getInputParameter("maxEvaluations");
+		gamma = (double) getInputParameter("gamma");
 		
 		//Initialize the variables
 		Solution solution = new Solution(problem_);
 		problem_.evaluate(solution);
 		evaluations++;
 		
-		while(evaluations < maxEvaluations && solution.getObjective(0) != 0.0) {
-			Variable[] r = solution.getDecisionVariables().clone();
+		boolean stop = false; //acho que isso é uma gambiarrinha
+
+		while(!stop && evaluations < maxEvaluations && solution.getObjective(0) != 0.0) {
+			Variable[] var = solution.getDecisionVariables().clone();
 			
 			for(int i = 0; i < r.length; i++) {
-				r[i].setValue(r[i].getValue() - gamma * 2.0 * (i + 1) * r[i].getValue());
+				var[i].setValue(r[i].getValue() - gamma * 2.0 * (i + 1) * var[i].getValue());
+
+				//coisa nova tbm
+				if(var[i].getValue() > var[i].getUpperBound()) {
+					var[i].setValue(var[i].getUpperBound());
+				} else if (var[i].getValue() < var[i].getLowerBound()) {
+					var[i].setValue(var[i].getLowerBound());
+				}
 			}
 			
-			Solution nSol = new Solution(problem_, r);
+			Solution nSol = new Solution(problem_, var);
 			problem_.evaluate(nSol);
 			evaluations++;
 			
 			if(nSol.getObjective(0) < solution.getObjective(0)) {
 				solution = nSol;
+			} else { //coisa nova
+				stop = true;
 			}
 		}
 		

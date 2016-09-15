@@ -12,7 +12,7 @@ public class App {
 		Problem problem; //The problem to solve
 		Algorithm algorithm; //The algorithm to use
 		
-		problem = new SumSquareProblem("Real", 2);
+		problem = new SumSquareProblem("Real", 1);
 		algorithm = new HillClimbing(problem);
 		
 		//Algorithm parameters
