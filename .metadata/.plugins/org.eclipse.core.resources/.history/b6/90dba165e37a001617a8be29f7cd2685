@@ -1,0 +1,19 @@
+package br.com.ceso.jmetal;
+
+import jmetal.core.Algorithm;
+import jmetal.core.Problem;
+import jmetal.core.SolutionSet;
+import jmetal.util.JMException;
+
+public class HillClimbing extends Algorithm {
+	public HillClimbing(Problem problem){
+		super(problem);
+	}
+
+	@Override
+	public SolutionSet execute() throws JMException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
