@@ -16,7 +16,7 @@ public class App {
 		algorithm = new HillClimbing(problem);
 		
 		//Algorithm parameters
-		algorithm.setInputParameter("gamma", 0.001);
+		algorithm.setInputParameter("gamma", 0.1);
 		algorithm.setInputParameter("maxEvaluations", 25000);
 		
 		//Execute the algorithm
