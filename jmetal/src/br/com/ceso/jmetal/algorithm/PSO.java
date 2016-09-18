@@ -26,9 +26,9 @@ public class PSO extends Algorithm {
 		int evaluations = 0;
 		
 		//Variaveis especificas do PSO
-		float w; //coeficiente de inércia
-		float c1, c2; //coeficientes de aceleração
-		float r1, r2; //valores randômicos gerados a cada atualização de velocidade
+		double w; //coeficiente de inércia
+		double c1, c2; //coeficientes de aceleração
+		double r1, r2; //valores randômicos gerados a cada atualização de velocidade
 		
 		//Variaveis que armazenam etapas da equação
 		double v = 0.0;
@@ -41,14 +41,14 @@ public class PSO extends Algorithm {
 		
 		//Read/set the params
 		maxEvaluations = (int) getInputParameter("maxEvaluations");
-		w = (float) getInputParameter("inertialCoefficient");
-		c1 = (float) getInputParameter("c1");
-		c2 = (float) getInputParameter("c2");
+		w = (double) getInputParameter("inertialCoefficient");
+		c1 = (double) getInputParameter("c1");
+		c2 = (double) getInputParameter("c2");
 		
 		
 		//Initialize the variables
 		Solution solution = new Solution(problem_);
-		problem_.evaluate(solution); //pra que isso?
+		problem_.evaluate(solution);
 		evaluations++;
 		
 		boolean stop = false; //acho que isso é uma gambiarrinha
@@ -63,7 +63,7 @@ public class PSO extends Algorithm {
 			}
 			
 			for(int i = 0; i < var.length; i++) {
-				//Update random values
+				//gera valores randômicos
 				r1 = random(0, 5000);
 				r2 = random(0, 5000);
 				
@@ -85,12 +85,13 @@ public class PSO extends Algorithm {
 					localBests[i] = var[i].getValue();
 				}
 
-				//coisa nova tbm
+				//Limita valores das variaveis ao limite minimo da função
 //				if(var[i].getValue() > var[i].getUpperBound()) {
 //					var[i].setValue(var[i].getUpperBound());
-//				} else if (var[i].getValue() < var[i].getLowerBound()) {
-//					var[i].setValue(var[i].getLowerBound());
-//				}
+//				} else 
+				if (var[i].getValue() < var[i].getLowerBound()) {
+					var[i].setValue(var[i].getLowerBound());
+				}
 			}
 			
 			Solution nSol = new Solution(problem_, var);

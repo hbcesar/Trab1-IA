@@ -22,10 +22,10 @@ public class Griewank extends Problem {
 		upperLimit_ = new double[numberOfVariables_];
 		lowerLimit_ = new double[numberOfVariables_];
 		
-		//?????????
+		//Seta o limite mínimo da função
 		for(int var = 0; var < numberOfVariables_; var++){
-			lowerLimit_[var] = -10.0;
-			upperLimit_[var] = 10.0;
+			lowerLimit_[var] = -0.0;
+//			upperLimit_[var] = 10.0;
 		}
 		
 		if(solutionType.compareTo("Real") == 0) {

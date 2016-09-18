@@ -1,0 +1,48 @@
+package br.com.ceso.jmetal;
+
+import br.com.ceso.jmetal.algorithm.PSO;
+import br.com.ceso.jmetal.problem.*;
+import jmetal.core.Algorithm;
+import jmetal.core.Problem;
+import jmetal.core.SolutionSet;
+import jmetal.core.Variable;
+import jmetal.util.JMException;
+
+public class App2 {
+
+	public static void main(String[] args) throws ClassNotFoundException, JMException {
+		//Roda o algoritmo PSO para resolver a equação de Bukin
+		Problem problem; //The problem to solve
+		Algorithm algorithm; //The algorithm to use
+		
+		problem = new Bukin("Real", 2);
+		algorithm = new PSO(problem);
+		
+		//Algorithm parameters
+		algorithm.setInputParameter("maxEvaluations", 25000);
+		algorithm.setInputParameter("inertialCoefficient", 0.8);
+		algorithm.setInputParameter("c1", 1.2);
+		algorithm.setInputParameter("c2", 1.8);
+		
+		//Execute the algorithm
+		long initTime = System.currentTimeMillis();
+		SolutionSet result = algorithm.execute();
+		long estimatedTime = System.currentTimeMillis() - initTime;
+		System.out.println("Tempo de execução: " + estimatedTime);
+		
+		//Log messages
+		System.out.println("Total de avaliações realizadas: " + algorithm.getOutputParameter("evaluations"));
+		Variable v[] = result.get(0).getDecisionVariables();
+		System.out.print("Posição e resultado encontrado: \n[" + v[0].getValue());
+		for(int i = 1; i < v.length; i++) {
+			System.out.print("," + v[i].getValue());
+		}
+		System.out.println("] = " + result.get(0).getObjective(0));
+		
+		System.out.println("Objectives values have been writen to file FUN");
+		result.printVariablesToFile("FUN");
+		System.out.println("Variables values have been writen to file VAR");
+		result.printVariablesToFile("VAR");
+	}
+
+}

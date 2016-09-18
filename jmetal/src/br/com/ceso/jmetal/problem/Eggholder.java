@@ -17,10 +17,10 @@ public class Eggholder extends Problem {
 		upperLimit_ = new double[numberOfVariables_];
 		lowerLimit_ = new double[numberOfVariables_];
 		
-		//?????????
+//		Seta o limite mínimo da função
 		for(int var = 0; var < numberOfVariables_; var++){
-			lowerLimit_[var] = -10.0;
-			upperLimit_[var] = 10.0;
+			lowerLimit_[var] = -959.6407;
+//			upperLimit_[var] = 10.0;
 		}
 		
 		if(solutionType.compareTo("Real") == 0) {
@@ -37,7 +37,7 @@ public class Eggholder extends Problem {
 		
 		double fx;
 		
-		fx = (x2 + 47) * Math.sin(Math.sqrt(Math.abs(x2 + (x1/2) + 47)) - x1 * Math.sin(Math.sqrt(Math.abs(x1 - (x2 + 47)));
+		fx = (decisionVariables[1].getValue() + 47) * Math.sin(Math.sqrt(Math.abs(decisionVariables[1].getValue() + (decisionVariables[0].getValue()/2) + 47))) - decisionVariables[0].getValue() * Math.sin(Math.sqrt(Math.abs(decisionVariables[0].getValue() - (decisionVariables[1].getValue() + 47))));
 
 		solution.setObjective(0, fx);
 	}
