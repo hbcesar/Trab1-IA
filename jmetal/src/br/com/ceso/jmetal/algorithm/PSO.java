@@ -56,16 +56,17 @@ public class PSO extends Algorithm {
 		while(!stop && evaluations < maxEvaluations) {
 			Variable[] var = solution.getDecisionVariables().clone();
 			
-			double localBests[] = new double[var.length];
+			double localBests[] = new double[2];
 			
-			for(int i = 0; i < var.length; i++){
-				localBests[i] = 0;
+			for(int i = 0; i < localBests.length; i++){
+				localBests[i] = 0.0;
+				localBests[i] = 0.0;
 			}
 			
-			for(int i = 0; i < var.length; i++) {
+//			for(int i = 0; i < var.length; i++) {
 				//gera valores randômicos
-				r1 = random(0, 5000);
-				r2 = random(0, 5000);
+				r1 = random();
+				r2 = random();
 				
 				inertiaComponent = w * v;
 				cognitiveComponent = c1 * r1 * (localBests[i] - var[i].getValue());
@@ -92,7 +93,7 @@ public class PSO extends Algorithm {
 				if (var[i].getValue() < var[i].getLowerBound()) {
 					var[i].setValue(var[i].getLowerBound());
 				}
-			}
+//			}
 			
 			Solution nSol = new Solution(problem_, var);
 			problem_.evaluate(nSol);
@@ -116,7 +117,9 @@ public class PSO extends Algorithm {
 		return result;
 	}
 	
-	private float random(float min, float max){
+	private float random(){
+		float min = 0;
+		float max = 1;
 		Random gerador = new Random();
 		 
         float numero = (gerador.nextFloat() * max) + min;

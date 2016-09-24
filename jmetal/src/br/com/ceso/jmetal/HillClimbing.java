@@ -39,6 +39,8 @@ public class HillClimbing extends Algorithm {
 		while(!stop && evaluations < maxEvaluations && solution.getObjective(0) != 0.0) {
 			Variable[] var = solution.getDecisionVariables().clone();
 			
+			System.out.println("Var length: " + var.length);
+			
 			for(int i = 0; i < var.length; i++) {
 				var[i].setValue(var[i].getValue() - gamma * 2.0 * (i + 1) * var[i].getValue());
 
