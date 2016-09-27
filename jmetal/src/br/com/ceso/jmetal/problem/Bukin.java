@@ -35,11 +35,9 @@ public class Bukin extends Problem {
 	public void evaluate(Solution solution) throws JMException {
 		Variable[] decisionVariables = solution.getDecisionVariables();
 		
-		System.out.println("Tamanho das variáveis: " + decisionVariables.length);
-		
 		double fx = 0;
 		
-		fx = 100 * Math.sqrt(Math.abs(decisionVariables[1].getValue() - 0.01 * decisionVariables[0].getValue())) + 0.01 * Math.abs(decisionVariables[0].getValue() + 10);
+		fx = 100 * Math.sqrt(Math.abs(decisionVariables[1].getValue() - 0.01 * Math.pow(decisionVariables[0].getValue(), 2))) + 0.01 * Math.abs(decisionVariables[0].getValue() + 10);
 
 		solution.setObjective(0, fx);
 	}

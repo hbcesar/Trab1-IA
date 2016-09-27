@@ -67,7 +67,6 @@ public class PSO extends Algorithm {
 
 	@Override
 	public SolutionSet execute() throws JMException, ClassNotFoundException {
-
 		// Lê os parametros do PSO
 		maxEvaluations = (int) getInputParameter("maxEvaluations");
 		w = (double) getInputParameter("inertialCoefficient");
@@ -88,7 +87,8 @@ public class PSO extends Algorithm {
 
 		// Cria as particulas e já guarda/atualiza seus melhores globais
 		for (int i = 0; i < nmrParticulas; i++) {
-			Solution particula = new Solution();
+			Solution particula = new Solution(problem_);
+
 			problem_.evaluate(particula);
 			evaluations++;
 			particulas.add(particula);
