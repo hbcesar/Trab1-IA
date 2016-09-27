@@ -34,7 +34,7 @@ public class App2 {
 		algorithm.setInputParameter("inertialCoefficient", 0.8);
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
-		algorithm.setInputParameter("numeroParticulas", 50);
+		algorithm.setInputParameter("numeroParticulas", 30);
 		
 		
 		//Execute the algorithm
@@ -54,11 +54,11 @@ public class App2 {
 		
 		//Relatorios
 		System.out.println("/********** EQUAÇÃO DE BUKIN *********/");
-		System.out.println("/********** TEMPO *********/");
+		System.out.println("/********** TEMPO (em ms) *********/");
 		System.out.println(tempos.toString());
 		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
 		System.out.println(avaliacoes.toString());
-		System.out.println("/********** VALORES *********/");
+		System.out.println("/********** OTIMOS *********/");
 		System.out.println(valores.toString());
 		System.out.println("\n");
 		
@@ -98,11 +98,11 @@ public class App2 {
 		
 		//Relatorios
 		System.out.println("/********** EQUAÇÃO DE EGGHOLDER *********/");
-		System.out.println("/********** TEMPO *********/");
+		System.out.println("/********** TEMPO (em ms) *********/");
 		System.out.println(tempos.toString());
 		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
 		System.out.println(avaliacoes.toString());
-		System.out.println("/********** VALORES *********/");
+		System.out.println("/********** OTIMOS *********/");
 		System.out.println(valores.toString());
 		System.out.println("\n");
 		
@@ -143,12 +143,13 @@ public class App2 {
 		
 		//Relatorios
 		System.out.println("/********** EQUAÇÃO DE GRIEWANK *********/");
-		System.out.println("/********** TEMPO *********/");
+		System.out.println("/********** TEMPO (em ms) *********/");
 		System.out.println(tempos.toString());
 		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
 		System.out.println(avaliacoes.toString());
 		System.out.println("/********** OTIMOS *********/");
 		System.out.println(valores.toString());
+		
 		
 		//Log messages
 //		System.out.println("Total de avaliações realizadas: " + algorithm.getOutputParameter("evaluations"));

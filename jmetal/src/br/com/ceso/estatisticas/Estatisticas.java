@@ -14,8 +14,8 @@ public class Estatisticas {
 		for (int i = 0; i < n; i++) {
 			media += valores[i];
 		}
-
-		return media / (double) n;
+		
+		return media / n;
 	}
 
 	public double minimo() {
@@ -63,9 +63,9 @@ public class Estatisticas {
 	public String toString() {
 		String s = "";
 
-		s += "Média: " + this.media() + "\n";
-		s += "Mínimo: " + this.minimo() + "\n";
-		s += "Máximo: " + this.maximo() + "\n";
+		s += "Média: " + String.format("%.2f", this.media()) + "\n";
+		s += "Mínimo: " + String.format("%.2f", this.minimo()) + "\n";
+		s += "Máximo: " + String.format("%.2f", this.maximo()) + "\n";
 		s += "Desvio Padrão: " + String.format("%.2f", this.desvioPadrao()) + "\n\n";
 
 		return s;

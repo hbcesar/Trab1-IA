@@ -7,23 +7,23 @@ import jmetal.encodings.solutionType.RealSolutionType;
 import jmetal.util.JMException;
 
 public class Eggholder extends Problem {
-	
-	public Eggholder (String solutionType, Integer numberOfVariables){
+
+	public Eggholder(String solutionType, Integer numberOfVariables) {
 		numberOfVariables_ = numberOfVariables;
 		numberOfObjectives_ = 1;
 		numberOfConstraints_ = 0;
 		problemName_ = "Eggholder";
-		
+
 		upperLimit_ = new double[numberOfVariables_];
 		lowerLimit_ = new double[numberOfVariables_];
-		
-//		Seta o limite mínimo da função
-		for(int var = 0; var < numberOfVariables_; var++){
-			lowerLimit_[var] = -959.6407;
-//			upperLimit_[var] = 10.0;
+
+		// Seta os limites mínimo e máximo da função
+		for (int i = 0; i < numberOfVariables_; i++) {
+			lowerLimit_[i] = -512.0;
+			upperLimit_[i] = 512.0;
 		}
-		
-		if(solutionType.compareTo("Real") == 0) {
+
+		if (solutionType.compareTo("Real") == 0) {
 			solutionType_ = new RealSolutionType(this);
 		} else {
 			System.out.println("Erro: solution type");
@@ -34,10 +34,16 @@ public class Eggholder extends Problem {
 	@Override
 	public void evaluate(Solution solution) throws JMException {
 		Variable[] decisionVariables = solution.getDecisionVariables();
-		
+
 		double fx;
 		
-		fx = (decisionVariables[1].getValue() + 47) * Math.sin(Math.sqrt(Math.abs(decisionVariables[1].getValue() + (decisionVariables[0].getValue()/2) + 47))) - decisionVariables[0].getValue() * Math.sin(Math.sqrt(Math.abs(decisionVariables[0].getValue() - (decisionVariables[1].getValue() + 47))));
+		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
+
+		fx = (decisionVariables[1].getValue() + 47)
+				* Math.sin(Math
+						.sqrt(Math.abs(decisionVariables[1].getValue() + (decisionVariables[0].getValue() / 2) + 47)))
+				- decisionVariables[0].getValue() * Math.sin(
+						Math.sqrt(Math.abs(decisionVariables[0].getValue() - (decisionVariables[1].getValue() + 47))));
 
 		solution.setObjective(0, fx);
 	}

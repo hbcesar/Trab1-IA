@@ -36,7 +36,6 @@ public class PSO extends Algorithm {
 	// velocidade
 
 	// Variaveis que armazenam etapas da equação
-	private double v = 0.0;
 	private double inertiaComponent;
 	private double cognitiveComponent;
 	private double socialComponent;
@@ -69,14 +68,16 @@ public class PSO extends Algorithm {
 	public SolutionSet execute() throws JMException, ClassNotFoundException {
 		// Lê os parametros do PSO
 		maxEvaluations = (int) getInputParameter("maxEvaluations");
+		evaluations = 0;
 		w = (double) getInputParameter("inertialCoefficient");
 		c1 = (double) getInputParameter("c1");
 		c2 = (double) getInputParameter("c2");
 		nmrParticulas = (int) getInputParameter("numeroParticulas");
+		
+		// maxEvaluations = maxEvaluations - nmrParticulas;
+		evaluations = 0;
 
 		// Inicializa variáveis
-		Solution solution = new Solution(problem_);
-		problem_.evaluate(solution);
 		evaluations++;
 		particulas = new SolutionSet(nmrParticulas);
 		localBest = new Solution[nmrParticulas];
@@ -88,7 +89,16 @@ public class PSO extends Algorithm {
 		// Cria as particulas e já guarda/atualiza seus melhores globais
 		for (int i = 0; i < nmrParticulas; i++) {
 			Solution particula = new Solution(problem_);
-
+			
+			Variable v[] = particula.getDecisionVariables();
+			
+			for(int j = 0; j < v.length; j++) {
+//				double range = problem_.getUpperLimit(j) - problem_.getLowerLimit(j)/(double)nmrParticulas;
+				v[j].setValue(random(problem_.getLowerLimit(j), problem_.getUpperLimit(j)));
+			}
+			
+//			particula.setDecisionVariables(v);
+			
 			problem_.evaluate(particula);
 			evaluations++;
 			particulas.add(particula);
@@ -121,8 +131,8 @@ public class PSO extends Algorithm {
 			// Calcula a velocidade de cada particula
 			for (int i = 0; i < nmrParticulas; i++) {
 				// gera valores randômicos
-				r1 = random();
-				r2 = random();
+				r1 = random(0, 1);
+				r2 = random(0, 1);
 
 				Variable[] bestGlobal = globalBest.getDecisionVariables();
 				Variable[] p = particulas.get(i).getDecisionVariables();
@@ -153,7 +163,7 @@ public class PSO extends Algorithm {
 					}
 				}
 			}
-
+			
 			// Avalia as particulas na nova posicao
 			for (int i = 0; i < nmrParticulas; i++) {
 				Solution particle = particulas.get(i);
@@ -187,12 +197,10 @@ public class PSO extends Algorithm {
 	    return resultPopulation ;
 	}
 
-	private float random() {
-		float min = 0;
-		float max = 1;
+	private double random(double min, double max) {
 		Random gerador = new Random();
 
-		float numero = (gerador.nextFloat() * max) + min;
+		double numero = (gerador.nextFloat() * max) + min;
 
 		return numero;
 	}
