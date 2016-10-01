@@ -35,8 +35,8 @@ public class App2 {
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
 		algorithm.setInputParameter("numeroParticulas", 30);
-		algorithm.setInputParameter("erro", 0.01);
-		algorithm.setInputParameter("generations", 5);
+		algorithm.setInputParameter("erro", 0.000001);
+		algorithm.setInputParameter("generations", 20);
 		
 		
 		//Execute the algorithm
@@ -61,7 +61,7 @@ public class App2 {
 		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
 		System.out.println(avaliacoes.toString());
 		System.out.println("/********** OTIMOS *********/");
-		System.out.println(valores.toString());
+		System.out.println(valores.toString(x, y));
 		System.out.println("\n");
 		
 		
@@ -81,8 +81,8 @@ public class App2 {
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
 		algorithm.setInputParameter("numeroParticulas", 50);
-		algorithm.setInputParameter("erro", 0.01);
-		algorithm.setInputParameter("generations", 5);
+		algorithm.setInputParameter("erro", 0.000001);
+		algorithm.setInputParameter("generations", 20);
 		
 		
 		//Execute the algorithm
@@ -107,7 +107,7 @@ public class App2 {
 		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
 		System.out.println(avaliacoes.toString());
 		System.out.println("/********** OTIMOS *********/");
-		System.out.println(valores.toString());
+		System.out.println(valores.toString(x, y));
 		System.out.println("\n");
 		
 		/*********************** Roda o PSO para a Equação de Griewank *******************************/
@@ -128,7 +128,7 @@ public class App2 {
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
 		algorithm.setInputParameter("numeroParticulas", 50);
-		algorithm.setInputParameter("erro", 0.01);
+		algorithm.setInputParameter("erro", 0.000001);
 		algorithm.setInputParameter("generations", 20);
 		
 		
@@ -154,7 +154,7 @@ public class App2 {
 		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
 		System.out.println(avaliacoes.toString());
 		System.out.println("/********** OTIMOS *********/");
-		System.out.println(valores.toString());
+		System.out.println(valores.toString(x, y));
 		
 		
 		//Log messages

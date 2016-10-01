@@ -42,11 +42,11 @@ public class Griewank extends Problem {
 
 		double fx;
 		double somatorio = 0;
-		double produtorio = 0;
+		double produtorio = 1;
 
 		for (int i = 1; i < numberOfVariables_; i++) {
-			somatorio += Math.pow(decisionVariables[i].getValue(), 2) / 4000;
-			produtorio *= Math.cos(decisionVariables[i].getValue() / Math.sqrt(i));
+			somatorio += Math.pow(decisionVariables[i].getValue(), 2) / 4000.0;
+			produtorio *= Math.cos(decisionVariables[i].getValue() / Math.sqrt(i+1));
 		}
 
 		fx = somatorio - produtorio + 1;

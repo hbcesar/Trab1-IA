@@ -53,16 +53,16 @@ public class PSO extends Algorithm {
 	/**
 	 * Comparator object
 	 */
-	Comparator comparator;
+	Comparator<?> comparator;
 	Operator findBestSolution;
 
 	public PSO(Problem problem) {
 		super(problem);
 
 		comparator = new ObjectiveComparator(0); // Single objective comparator
-		HashMap parameters; // Operator parameters
+		HashMap<String, Object> parameters; // Operator parameters
 
-		parameters = new HashMap();
+		parameters = new HashMap<String, Object>();
 		parameters.put("comparator", comparator);
 		findBestSolution = new BestSolutionSelection(parameters);
 	}
@@ -98,8 +98,8 @@ public class PSO extends Algorithm {
 			Variable v[] = particula.getDecisionVariables();
 			
 			for(int j = 0; j < v.length; j++) {
-				double range = problem_.getUpperLimit(j) - problem_.getLowerLimit(j)/(double)nmrParticulas - 1;
-				v[j].setValue(range * i);
+				double range = Math.abs(problem_.getUpperLimit(j) - problem_.getLowerLimit(j))/(nmrParticulas-1);
+				v[j].setValue(problem_.getLowerLimit(j) + range * i);
 			}
 			
 			particula.setDecisionVariables(v);
@@ -148,10 +148,6 @@ public class PSO extends Algorithm {
 				Variable[] p = particulas.get(i).getDecisionVariables();
 				Variable[] bestParticle = localBest[i].getDecisionVariables();
 
-				//Calculo do erro
-				double[] err = new double[problem_.getNumberOfVariables()];
-				double[] err2 = new double[problem_.getNumberOfVariables()];
-
 				for (int j = 0; j < problem_.getNumberOfVariables(); j++) {
 
 					// Calcula coeficiente de inércia
@@ -166,9 +162,6 @@ public class PSO extends Algorithm {
 					// Calcula velocidade da partícula
 					velocidade[i][j] = inertiaComponent + cognitiveComponent + socialComponent;
 
-					//Anota posição anterior para calculo do erro
-					err[j] = p[j].getValue();
-					
 					// Atualiza posicao dentro do upper e lower bound
 					p[j].setValue(p[j].getValue() + velocidade[i][j]);
 
@@ -179,25 +172,18 @@ public class PSO extends Algorithm {
 					if (p[j].getValue() > problem_.getUpperLimit(j)) {
 						p[j].setValue(problem_.getUpperLimit(j));
 					}
-
-					//Anota posição final para calculo do erro
-					err2[j] = p[j].getValue();
-					
-					
-				}
-
-				if(distanciaEuclidiana(err, err2) > erro) {
-					erro = distanciaEuclidiana(err, err2);
-//					System.out.println("Erro: " + erro);
 				}
 			}
 			
-			// Avalia as particulas na nova posicao e calcula o erro
+			// Avalia as particulas na nova posicao
 			for (int i = 0; i < nmrParticulas; i++) {
 				Solution particle = particulas.get(i);
 				problem_.evaluate(particle);
 				evaluations++;
 			}
+			
+			//Guarda o valor do best global anterior para o calculo do erro
+			double g = globalBest.getObjective(0);
 
 			// Atualiza a memória de cada particula
 			for (int i = 0; i < nmrParticulas; i++) {
@@ -211,6 +197,10 @@ public class PSO extends Algorithm {
 				} 
 			}
 			
+			if(g - globalBest.getObjective(0) > erro){
+				erro = g - globalBest.getObjective(0);
+			}
+			
 			if(erro < erroMax){
 				if(gen > generations) {
 					stop = true;
@@ -218,7 +208,6 @@ public class PSO extends Algorithm {
 					gen++;
 				}
 			}
-			// iteration_++;
 		}
 		
 		//Seta outputs para relatorio
@@ -227,7 +216,7 @@ public class PSO extends Algorithm {
 
 		//Retorna a particula com o melhor resultado
 	    SolutionSet resultPopulation = new SolutionSet(1) ;
-	    // resultPopulation.add(particulas.get((Integer)findBestSolution.execute(particulas)));
+//	     resultPopulation.add(particulas.get((Integer)findBestSolution.execute(particulas)));
 	    resultPopulation.add(globalBest);
 	    
 	    return resultPopulation ;
@@ -241,16 +230,16 @@ public class PSO extends Algorithm {
 		return numero;
 	}
 
-	private double distanciaEuclidiana(double[] err, double[] err2) {
-		double erro = 0;
-
-//		System.out.println("erro length: " + err.length);
-		for (int i = 0; i < err.length; i++){
-			erro += Math.pow(err[i] - err2[i], 2);
-		}
-		
-//		System.out.println("Erro: " + erro);
-
-		return Math.sqrt(erro);
-	}
+//	private double distanciaEuclidiana(double[] err, double[] err2) {
+//		double erro = 0;
+//
+////		System.out.println("erro length: " + err.length);
+//		for (int i = 0; i < err.length; i++){
+//			erro += Math.pow(err[i] - err2[i], 2);
+//		}
+//		
+////		System.out.println("Erro: " + erro);
+//
+//		return Math.sqrt(erro);
+//	}
 }
