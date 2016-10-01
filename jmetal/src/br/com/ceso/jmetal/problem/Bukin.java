@@ -8,6 +8,11 @@ import jmetal.util.JMException;
 
 public class Bukin extends Problem {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3000437521747689560L;
+
 	public Bukin(String solutionType, Integer numberOfVariables) {
 		numberOfVariables_ = numberOfVariables;
 		numberOfObjectives_ = 2;
@@ -35,9 +40,9 @@ public class Bukin extends Problem {
 	public void evaluate(Solution solution) throws JMException {
 		Variable[] decisionVariables = solution.getDecisionVariables();
 		
-//		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
-
 		double fx = 0;
+		
+//		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
 
 		fx = 100 * Math
 				.sqrt(Math.abs(decisionVariables[1].getValue() - 0.01 * Math.pow(decisionVariables[0].getValue(), 2)))

@@ -13,7 +13,6 @@ import jmetal.core.Variable;
 import jmetal.operators.selection.BestSolutionSelection;
 import jmetal.util.JMException;
 import jmetal.util.comparators.ObjectiveComparator;
-import jmetal.util.wrapper.XReal;
 
 public class PSO extends Algorithm {
 	/**
@@ -46,6 +45,10 @@ public class PSO extends Algorithm {
 
 	// Variáveis para velocidade e localizacao da particula
 	private double[][] velocidade;
+	
+	//Variaveis de erro
+	private double erroMax = 0;
+	private int generations = 0;
 
 	/**
 	 * Comparator object
@@ -73,6 +76,8 @@ public class PSO extends Algorithm {
 		c1 = (double) getInputParameter("c1");
 		c2 = (double) getInputParameter("c2");
 		nmrParticulas = (int) getInputParameter("numeroParticulas");
+		erroMax = (double) getInputParameter("erro");
+		generations = (int) getInputParameter("generations");
 		
 		// maxEvaluations = maxEvaluations - nmrParticulas;
 		evaluations = 0;
@@ -93,11 +98,11 @@ public class PSO extends Algorithm {
 			Variable v[] = particula.getDecisionVariables();
 			
 			for(int j = 0; j < v.length; j++) {
-//				double range = problem_.getUpperLimit(j) - problem_.getLowerLimit(j)/(double)nmrParticulas;
-				v[j].setValue(random(problem_.getLowerLimit(j), problem_.getUpperLimit(j)));
+				double range = problem_.getUpperLimit(j) - problem_.getLowerLimit(j)/(double)nmrParticulas - 1;
+				v[j].setValue(range * i);
 			}
 			
-//			particula.setDecisionVariables(v);
+			particula.setDecisionVariables(v);
 			
 			problem_.evaluate(particula);
 			evaluations++;
@@ -127,7 +132,12 @@ public class PSO extends Algorithm {
 			localBest[i] = particle;
 		}
 
-		while (!stop && evaluations < maxEvaluations) {
+		double erro = (-1) * Double.MAX_VALUE - 1.0;
+		double gen = 0;
+
+		while (!stop && evaluations < (maxEvaluations - nmrParticulas)) {
+			//Armazena erro maximo
+
 			// Calcula a velocidade de cada particula
 			for (int i = 0; i < nmrParticulas; i++) {
 				// gera valores randômicos
@@ -137,6 +147,10 @@ public class PSO extends Algorithm {
 				Variable[] bestGlobal = globalBest.getDecisionVariables();
 				Variable[] p = particulas.get(i).getDecisionVariables();
 				Variable[] bestParticle = localBest[i].getDecisionVariables();
+
+				//Calculo do erro
+				double[] err = new double[problem_.getNumberOfVariables()];
+				double[] err2 = new double[problem_.getNumberOfVariables()];
 
 				for (int j = 0; j < problem_.getNumberOfVariables(); j++) {
 
@@ -152,8 +166,12 @@ public class PSO extends Algorithm {
 					// Calcula velocidade da partícula
 					velocidade[i][j] = inertiaComponent + cognitiveComponent + socialComponent;
 
+					//Anota posição anterior para calculo do erro
+					err[j] = p[j].getValue();
+					
 					// Atualiza posicao dentro do upper e lower bound
 					p[j].setValue(p[j].getValue() + velocidade[i][j]);
+
 
 					if (p[j].getValue() < problem_.getLowerLimit(j)) {
 						p[j].setValue(problem_.getLowerLimit(j));
@@ -161,10 +179,20 @@ public class PSO extends Algorithm {
 					if (p[j].getValue() > problem_.getUpperLimit(j)) {
 						p[j].setValue(problem_.getUpperLimit(j));
 					}
+
+					//Anota posição final para calculo do erro
+					err2[j] = p[j].getValue();
+					
+					
+				}
+
+				if(distanciaEuclidiana(err, err2) > erro) {
+					erro = distanciaEuclidiana(err, err2);
+//					System.out.println("Erro: " + erro);
 				}
 			}
 			
-			// Avalia as particulas na nova posicao
+			// Avalia as particulas na nova posicao e calcula o erro
 			for (int i = 0; i < nmrParticulas; i++) {
 				Solution particle = particulas.get(i);
 				problem_.evaluate(particle);
@@ -173,16 +201,23 @@ public class PSO extends Algorithm {
 
 			// Atualiza a memória de cada particula
 			for (int i = 0; i < nmrParticulas; i++) {
-				if ((particulas.get(i).getObjective(0) < localBest[i].getObjective(0))) {
+				if ((particulas.get(i).getObjective(0) > localBest[i].getObjective(0))) {
 					Solution particle = new Solution(particulas.get(i));
 					localBest[i] = particle;
 				}
-				if ((particulas.get(i).getObjective(0) < globalBest.getObjective(0))) {
+				if ((particulas.get(i).getObjective(0) > globalBest.getObjective(0))) {
 					Solution particle = new Solution(particulas.get(i));
 					globalBest = particle;
 				} 
 			}
 			
+			if(erro < erroMax){
+				if(gen > generations) {
+					stop = true;
+				} else {
+					gen++;
+				}
+			}
 			// iteration_++;
 		}
 		
@@ -192,7 +227,8 @@ public class PSO extends Algorithm {
 
 		//Retorna a particula com o melhor resultado
 	    SolutionSet resultPopulation = new SolutionSet(1) ;
-	    resultPopulation.add(particulas.get((Integer)findBestSolution.execute(particulas)));
+	    // resultPopulation.add(particulas.get((Integer)findBestSolution.execute(particulas)));
+	    resultPopulation.add(globalBest);
 	    
 	    return resultPopulation ;
 	}
@@ -203,5 +239,18 @@ public class PSO extends Algorithm {
 		double numero = (gerador.nextFloat() * max) + min;
 
 		return numero;
+	}
+
+	private double distanciaEuclidiana(double[] err, double[] err2) {
+		double erro = 0;
+
+//		System.out.println("erro length: " + err.length);
+		for (int i = 0; i < err.length; i++){
+			erro += Math.pow(err[i] - err2[i], 2);
+		}
+		
+//		System.out.println("Erro: " + erro);
+
+		return Math.sqrt(erro);
 	}
 }

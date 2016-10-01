@@ -8,6 +8,11 @@ import jmetal.util.JMException;
 
 public class Eggholder extends Problem {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2934969167137497775L;
+
 	public Eggholder(String solutionType, Integer numberOfVariables) {
 		numberOfVariables_ = numberOfVariables;
 		numberOfObjectives_ = 1;
@@ -37,7 +42,7 @@ public class Eggholder extends Problem {
 
 		double fx;
 		
-		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
+//		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
 
 		fx = (decisionVariables[1].getValue() + 47)
 				* Math.sin(Math

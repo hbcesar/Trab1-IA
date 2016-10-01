@@ -31,7 +31,7 @@ public class Estatisticas {
 	}
 
 	public double maximo() {
-		double max = (-1) * Double.MAX_VALUE - 1.0; // ou zero?
+		double max = (-1) * Double.MAX_VALUE - 1.0;
 
 		for (int i = 0; i < n; i++) {
 			if (valores[i] > max) {

@@ -35,6 +35,8 @@ public class App2 {
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
 		algorithm.setInputParameter("numeroParticulas", 30);
+		algorithm.setInputParameter("erro", 0.01);
+		algorithm.setInputParameter("generations", 5);
 		
 		
 		//Execute the algorithm
@@ -79,6 +81,8 @@ public class App2 {
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
 		algorithm.setInputParameter("numeroParticulas", 50);
+		algorithm.setInputParameter("erro", 0.01);
+		algorithm.setInputParameter("generations", 5);
 		
 		
 		//Execute the algorithm
@@ -124,6 +128,8 @@ public class App2 {
 		algorithm.setInputParameter("c1", 1.2);
 		algorithm.setInputParameter("c2", 1.8);
 		algorithm.setInputParameter("numeroParticulas", 50);
+		algorithm.setInputParameter("erro", 0.01);
+		algorithm.setInputParameter("generations", 20);
 		
 		
 		//Execute the algorithm
