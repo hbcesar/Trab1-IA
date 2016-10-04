@@ -1,20 +1,13 @@
 package br.com.ceso.jmetal.algorithm;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Random;
-
 import jmetal.core.Algorithm;
-import jmetal.core.Operator;
 import jmetal.core.Problem;
 import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
 import jmetal.core.Variable;
-import jmetal.operators.selection.BestSolutionSelection;
 import jmetal.util.JMException;
-import jmetal.util.comparators.ObjectiveComparator;
 
-public class PSO extends Algorithm {
+public class PSOAlgorithm extends Algorithm {
 	/**
 	 * 
 	 */
@@ -50,21 +43,8 @@ public class PSO extends Algorithm {
 	private double erroMax = 0;
 	private int generations = 0;
 
-	/**
-	 * Comparator object
-	 */
-	Comparator<?> comparator;
-	Operator findBestSolution;
-
-	public PSO(Problem problem) {
+	public PSOAlgorithm(Problem problem) {
 		super(problem);
-
-		comparator = new ObjectiveComparator(0); // Single objective comparator
-		HashMap<String, Object> parameters; // Operator parameters
-
-		parameters = new HashMap<String, Object>();
-		parameters.put("comparator", comparator);
-		findBestSolution = new BestSolutionSelection(parameters);
 	}
 
 	@Override
@@ -98,8 +78,6 @@ public class PSO extends Algorithm {
 			Variable v[] = particula.getDecisionVariables();
 			
 			for(int j = 0; j < v.length; j++) {
-//				double range = Math.abs(problem_.getUpperLimit(j) - problem_.getLowerLimit(j))/(nmrParticulas-1);
-//				v[j].setValue(problem_.getLowerLimit(j) + range * i);
 				v[j].setValue(random(problem_.getLowerLimit(j), problem_.getUpperLimit(j)));
 			}
 			
@@ -111,12 +89,7 @@ public class PSO extends Algorithm {
 
 			// Durante a criação da particulas, já cria/atualiza o global best.
 			if ((globalBest == null) || (particula.getObjective(0) < globalBest.getObjective(0))) {
-				globalBest = new Solution(particula); // Quando já passa uma
-														// Solution como
-														// parametro para o
-														// construtor de outra
-														// solution, ele cria
-														// uma cópia da mesma
+				globalBest = new Solution(particula);
 			}
 		}
 
@@ -127,18 +100,16 @@ public class PSO extends Algorithm {
 			}
 		}
 
-		// Inicializa memória de cada particula
+		// Inicializa memória de cada particula (primeiro localbest é a propria particula)
 		for (int i = 0; i < nmrParticulas; i++) {
 			Solution particle = new Solution(particulas.get(i));
 			localBest[i] = particle;
 		}
 
-		double erro = (-1) * Double.MAX_VALUE - 1.0;
-		double gen = 0;
+		double erro = (-1) * Double.MAX_VALUE - 1.0; //minimo possivel
+		double gen = 0; //verifica quantas vezes o erro minimo foi atingido
 
 		while (!stop && evaluations < (maxEvaluations - nmrParticulas)) {
-			//Armazena erro maximo
-
 			// Calcula a velocidade de cada particula
 			for (int i = 0; i < nmrParticulas; i++) {
 				// gera valores randômicos
@@ -146,7 +117,7 @@ public class PSO extends Algorithm {
 				r2 = random(0, 1);
 
 				Variable[] bestGlobal = globalBest.getDecisionVariables();
-				Variable[] p = particulas.get(i).getDecisionVariables();
+				Variable[] p = particulas.get(i).getDecisionVariables(); //particula que sera analisada
 				Variable[] bestParticle = localBest[i].getDecisionVariables();
 
 				for (int j = 0; j < problem_.getNumberOfVariables(); j++) {
@@ -166,7 +137,7 @@ public class PSO extends Algorithm {
 					// Atualiza posicao dentro do upper e lower bound
 					p[j].setValue(p[j].getValue() + velocidade[i][j]);
 
-
+					//Confere se nova posicao esta dentro dos limites do problema, se nao tiver, seta para o limite
 					if (p[j].getValue() < problem_.getLowerLimit(j)) {
 						p[j].setValue(problem_.getLowerLimit(j));
 					}
@@ -198,10 +169,13 @@ public class PSO extends Algorithm {
 				} 
 			}
 			
+			//Calcula o erro
 			if(g - globalBest.getObjective(0) > erro){
 				erro = g - globalBest.getObjective(0);
 			}
 			
+			//Se erro minimo for atingido 20 vezes consecutivas, para iteracao (while)
+			//Baseado em: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.3511&rep=rep1&type=pdf
 			if(erro < erroMax){
 				if(gen > generations) {
 					stop = true;
@@ -219,7 +193,6 @@ public class PSO extends Algorithm {
 
 		//Retorna a particula com o melhor resultado
 	    SolutionSet resultPopulation = new SolutionSet(1) ;
-//	     resultPopulation.add(particulas.get((Integer)findBestSolution.execute(particulas)));
 	    resultPopulation.add(globalBest);
 	    
 	    return resultPopulation ;

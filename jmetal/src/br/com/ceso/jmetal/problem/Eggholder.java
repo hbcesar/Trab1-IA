@@ -1,5 +1,6 @@
 package br.com.ceso.jmetal.problem;
 
+import br.com.ceso.erro.RealNumberException;
 import jmetal.core.Problem;
 import jmetal.core.Solution;
 import jmetal.core.Variable;
@@ -13,7 +14,7 @@ public class Eggholder extends Problem {
 	 */
 	private static final long serialVersionUID = 2934969167137497775L;
 
-	public Eggholder(String solutionType, Integer numberOfVariables) {
+	public Eggholder(String solutionType, Integer numberOfVariables) throws RealNumberException {
 		numberOfVariables_ = numberOfVariables;
 		numberOfObjectives_ = 1;
 		numberOfConstraints_ = 0;
@@ -31,8 +32,7 @@ public class Eggholder extends Problem {
 		if (solutionType.compareTo("Real") == 0) {
 			solutionType_ = new RealSolutionType(this);
 		} else {
-			System.out.println("Erro: solution type");
-			System.exit(-1);
+			throw new RealNumberException("Invalid solution type!");
 		}
 	}
 
