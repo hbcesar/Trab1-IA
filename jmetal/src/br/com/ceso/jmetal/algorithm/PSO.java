@@ -98,8 +98,9 @@ public class PSO extends Algorithm {
 			Variable v[] = particula.getDecisionVariables();
 			
 			for(int j = 0; j < v.length; j++) {
-				double range = Math.abs(problem_.getUpperLimit(j) - problem_.getLowerLimit(j))/(nmrParticulas-1);
-				v[j].setValue(problem_.getLowerLimit(j) + range * i);
+//				double range = Math.abs(problem_.getUpperLimit(j) - problem_.getLowerLimit(j))/(nmrParticulas-1);
+//				v[j].setValue(problem_.getLowerLimit(j) + range * i);
+				v[j].setValue(random(problem_.getLowerLimit(j), problem_.getUpperLimit(j)));
 			}
 			
 			particula.setDecisionVariables(v);
@@ -207,6 +208,8 @@ public class PSO extends Algorithm {
 				} else {
 					gen++;
 				}
+			} else {
+				gen = 0;
 			}
 		}
 		
@@ -223,23 +226,8 @@ public class PSO extends Algorithm {
 	}
 
 	private double random(double min, double max) {
-		Random gerador = new Random();
-
-		double numero = (gerador.nextFloat() * max) + min;
+		double numero = Math.random() * (max - min) + min;
 
 		return numero;
 	}
-
-//	private double distanciaEuclidiana(double[] err, double[] err2) {
-//		double erro = 0;
-//
-////		System.out.println("erro length: " + err.length);
-//		for (int i = 0; i < err.length; i++){
-//			erro += Math.pow(err[i] - err2[i], 2);
-//		}
-//		
-////		System.out.println("Erro: " + erro);
-//
-//		return Math.sqrt(erro);
-//	}
 }

@@ -42,13 +42,6 @@ public class Eggholder extends Problem {
 
 		double fx;
 		
-//		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
-
-//		fx = (decisionVariables[1].getValue() + 47)
-//				* Math.sin(Math
-//						.sqrt(Math.abs(decisionVariables[1].getValue() + (decisionVariables[0].getValue() / 2) + 47)))
-//				- decisionVariables[0].getValue() * Math.sin(
-//						Math.sqrt(Math.abs(decisionVariables[0].getValue() - (decisionVariables[1].getValue() + 47))));
 		double term1;
 		double term2;
 		

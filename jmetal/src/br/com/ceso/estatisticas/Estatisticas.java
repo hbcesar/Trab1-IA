@@ -74,10 +74,10 @@ public class Estatisticas {
 	public String toString(Estatisticas x, Estatisticas y){
 		String s = "";
 
-		s += "Média: " + String.format("%.2f", this.media()) + " em (" + String.format("%.2f", x.media()) + ", " + String.format("%.2f", y.media()) +  ")\n";
-		s += "Mínimo: " + String.format("%.2f", this.minimo()) + " em (" + String.format("%.2f", x.minimo()) + ", " + String.format("%.2f", y.minimo()) +  ")\n";
-		s += "Máximo: " + String.format("%.2f", this.maximo()) + " em (" + String.format("%.2f", x.maximo()) + ", " + String.format("%.2f", y.maximo()) +  ")\n";
-		s += "Desvio Padrão: " + String.format("%.2f", this.desvioPadrao()) + " em (" + String.format("%.2f", x.desvioPadrao()) + ", " + String.format("%.2f", y.desvioPadrao()) +  ")\n";
+		s += "Média: " + String.format("%.4f", this.media()) + " em (" + String.format("%.4f", x.media()) + ", " + String.format("%.4f", y.media()) +  ")\n";
+		s += "Mínimo: " + String.format("%.4f", this.minimo()) + " em (" + String.format("%.4f", x.minimo()) + ", " + String.format("%.4f", y.minimo()) +  ")\n";
+		s += "Máximo: " + String.format("%.4f", this.maximo()) + " em (" + String.format("%.4f", x.maximo()) + ", " + String.format("%.4f", y.maximo()) +  ")\n";
+		s += "Desvio Padrão: " + String.format("%.4f", this.desvioPadrao()) + " em (" + String.format("%.4f", x.desvioPadrao()) + ", " + String.format("%.4f", y.desvioPadrao()) +  ")\n";
 
 		return s;
 	}

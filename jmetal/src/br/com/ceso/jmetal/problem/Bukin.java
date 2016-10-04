@@ -44,14 +44,8 @@ public class Bukin extends Problem {
 		double term1 = 0;
 		double term2 = 0;
 		
-//		System.out.println("Mocinhas da cidade: " + decisionVariables[0].getValue());
-
-//		fx = 100 * Math
-//				.sqrt(Math.abs(decisionVariables[1].getValue() - 0.01 * Math.pow(decisionVariables[0].getValue(), 2)))
-//				+ 0.01 * Math.abs(decisionVariables[0].getValue() + 10);
-		
 		term1 = 100 * Math.sqrt(Math.abs(decisionVariables[1].getValue() - 0.01*Math.pow(decisionVariables[0].getValue(), 2)));
-		term2 = 0.01 * Math.abs(decisionVariables[0].getValue() + 10);
+		term2 = 0.01 * Math.abs(decisionVariables[0].getValue() + 10.0);
 		
 		fx = term1 + term2;
 

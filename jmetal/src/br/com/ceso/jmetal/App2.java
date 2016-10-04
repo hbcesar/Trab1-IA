@@ -18,10 +18,10 @@ public class App2 {
 		long initTime;
 		long estimatedTime;
 		
-		/*********************** Roda o PSO para a Equação de Bukin *******************************/
-		problem = new Bukin("Real", 2);
-		algorithm = new PSO(problem);
-		
+//		/*********************** Roda o PSO para a Equação de Bukin *******************************/
+//		problem = new Bukin("Real", 2);
+//		algorithm = new PSO(problem);
+//		
 		Estatisticas tempos = new Estatisticas();
 		Estatisticas valores = new Estatisticas();
 		Estatisticas avaliacoes = new Estatisticas();
@@ -30,87 +30,87 @@ public class App2 {
 		
 		
 		//Algorithm parameters
-		algorithm.setInputParameter("maxEvaluations", 25000);
-		algorithm.setInputParameter("inertialCoefficient", 0.8);
-		algorithm.setInputParameter("c1", 1.2);
-		algorithm.setInputParameter("c2", 1.8);
-		algorithm.setInputParameter("numeroParticulas", 30);
-		algorithm.setInputParameter("erro", 0.000001);
-		algorithm.setInputParameter("generations", 20);
+//		algorithm.setInputParameter("maxEvaluations", 25000);
+//		algorithm.setInputParameter("inertialCoefficient", 1.2);
+//		algorithm.setInputParameter("c1", 2.0);
+//		algorithm.setInputParameter("c2", 1.7);
+//		algorithm.setInputParameter("numeroParticulas", 8);
+//		algorithm.setInputParameter("erro", 0.000001);
+//		algorithm.setInputParameter("generations", 20);
+//		
+//		
+//		//Execute the algorithm
+//		for(int i = 0; i < 10; i++){
+//			initTime = System.currentTimeMillis();
+//			SolutionSet result = algorithm.execute();
+//			estimatedTime = System.currentTimeMillis() - initTime;
+//			
+//			Variable v[] = result.get(0).getDecisionVariables();
+//			x.add(v[0].getValue());
+//			y.add(v[1].getValue());
+//			
+//			tempos.add(estimatedTime);
+//			valores.add(result.get(0).getObjective(0));
+//			avaliacoes.add((double)Integer.parseInt(algorithm.getOutputParameter("avaliacoes").toString()));
+//		}
+//		
+//		//Relatorios
+//		System.out.println("/********** EQUAÇÃO DE BUKIN *********/");
+//		System.out.println("/********** TEMPO (em ms) *********/");
+//		System.out.println(tempos.toString());
+//		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
+//		System.out.println(avaliacoes.toString());
+//		System.out.println("/********** OTIMOS *********/");
+//		System.out.println(valores.toString(x, y));
+//		System.out.println("\n");
 		
 		
-		//Execute the algorithm
-		for(int i = 0; i < 10; i++){
-			initTime = System.currentTimeMillis();
-			SolutionSet result = algorithm.execute();
-			estimatedTime = System.currentTimeMillis() - initTime;
-			
-			Variable v[] = result.get(0).getDecisionVariables();
-			x.add(v[0].getValue());
-			y.add(v[1].getValue());
-			
-			tempos.add(estimatedTime);
-			valores.add(result.get(0).getObjective(0));
-			avaliacoes.add((double)Integer.parseInt(algorithm.getOutputParameter("avaliacoes").toString()));
-		}
-		
-		//Relatorios
-		System.out.println("/********** EQUAÇÃO DE BUKIN *********/");
-		System.out.println("/********** TEMPO (em ms) *********/");
-		System.out.println(tempos.toString());
-		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
-		System.out.println(avaliacoes.toString());
-		System.out.println("/********** OTIMOS *********/");
-		System.out.println(valores.toString(x, y));
-		System.out.println("\n");
-		
-		
-		/*********************** Roda o PSO para a Equação de Eggholder *******************************/
-		problem = new Eggholder("Real", 2);
-		algorithm = new PSO(problem);
-		
-		tempos = new Estatisticas();
-		valores = new Estatisticas();
-		avaliacoes = new Estatisticas();
-		x = new Estatisticas();
-		y = new Estatisticas();
-		
-		//Algorithm parameters
-		algorithm.setInputParameter("maxEvaluations", 25000);
-		algorithm.setInputParameter("inertialCoefficient", 0.8);
-		algorithm.setInputParameter("c1", 1.2);
-		algorithm.setInputParameter("c2", 1.8);
-		algorithm.setInputParameter("numeroParticulas", 50);
-		algorithm.setInputParameter("erro", 0.000001);
-		algorithm.setInputParameter("generations", 20);
-		
-		
-		//Execute the algorithm
-		for(int i = 0; i < 10; i++){
-			initTime = System.currentTimeMillis();
-			SolutionSet result = algorithm.execute();
-			estimatedTime = System.currentTimeMillis() - initTime;
-			
-			Variable v[] = result.get(0).getDecisionVariables();
-			x.add(v[0].getValue());
-			y.add(v[1].getValue());
-			
-			tempos.add(estimatedTime);
-			valores.add(result.get(0).getObjective(0));
-			avaliacoes.add((double)Integer.parseInt(algorithm.getOutputParameter("avaliacoes").toString()));
-		}
-		
-		//Relatorios
-		System.out.println("/********** EQUAÇÃO DE EGGHOLDER *********/");
-		System.out.println("/********** TEMPO (em ms) *********/");
-		System.out.println(tempos.toString());
-		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
-		System.out.println(avaliacoes.toString());
-		System.out.println("/********** OTIMOS *********/");
-		System.out.println(valores.toString(x, y));
-		System.out.println("\n");
-		
-		/*********************** Roda o PSO para a Equação de Griewank *******************************/
+//		/*********************** Roda o PSO para a Equação de Eggholder *******************************/
+//		problem = new Eggholder("Real", 2);
+//		algorithm = new PSO(problem);
+//		
+//		tempos = new Estatisticas();
+//		valores = new Estatisticas();
+//		avaliacoes = new Estatisticas();
+//		x = new Estatisticas();
+//		y = new Estatisticas();
+//		
+//		//Algorithm parameters
+//		algorithm.setInputParameter("maxEvaluations", 25000);
+//		algorithm.setInputParameter("inertialCoefficient", 0.5);
+//		algorithm.setInputParameter("c1", 2.0);
+//		algorithm.setInputParameter("c2", 2.0);
+//		algorithm.setInputParameter("numeroParticulas", 50);
+//		algorithm.setInputParameter("erro", 0.000001);
+//		algorithm.setInputParameter("generations", 20);
+//		
+//		
+//		//Execute the algorithm
+//		for(int i = 0; i < 10; i++){
+//			initTime = System.currentTimeMillis();
+//			SolutionSet result = algorithm.execute();
+//			estimatedTime = System.currentTimeMillis() - initTime;
+//			
+//			Variable v[] = result.get(0).getDecisionVariables();
+//			x.add(v[0].getValue());
+//			y.add(v[1].getValue());
+//			
+//			tempos.add(estimatedTime);
+//			valores.add(result.get(0).getObjective(0));
+//			avaliacoes.add((double)Integer.parseInt(algorithm.getOutputParameter("avaliacoes").toString()));
+//		}
+//		
+//		//Relatorios
+//		System.out.println("/********** EQUAÇÃO DE EGGHOLDER *********/");
+//		System.out.println("/********** TEMPO (em ms) *********/");
+//		System.out.println(tempos.toString());
+//		System.out.println("/********** NÚMERO DE AVALIAÇÕES *********/");
+//		System.out.println(avaliacoes.toString());
+//		System.out.println("/********** OTIMOS *********/");
+//		System.out.println(valores.toString(x, y));
+//		System.out.println("\n");
+//		
+//		/*********************** Roda o PSO para a Equação de Griewank *******************************/
 		problem = new Griewank("Real", 3);
 		algorithm = new PSO(problem);
 		
@@ -124,10 +124,10 @@ public class App2 {
 		
 		//Algorithm parameters
 		algorithm.setInputParameter("maxEvaluations", 25000);
-		algorithm.setInputParameter("inertialCoefficient", 0.8);
-		algorithm.setInputParameter("c1", 1.2);
-		algorithm.setInputParameter("c2", 1.8);
-		algorithm.setInputParameter("numeroParticulas", 50);
+		algorithm.setInputParameter("inertialCoefficient", 1.2);
+		algorithm.setInputParameter("c1", 2.0);
+		algorithm.setInputParameter("c2", 1.7);
+		algorithm.setInputParameter("numeroParticulas", 20);
 		algorithm.setInputParameter("erro", 0.000001);
 		algorithm.setInputParameter("generations", 20);
 		
