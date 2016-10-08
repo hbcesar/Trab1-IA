@@ -65,6 +65,7 @@ public class PSOAlgorithm extends Algorithm {
 		// Inicializa variáveis
 		evaluations++;
 		particulas = new SolutionSet(nmrParticulas);
+		globalBest = null;
 		localBest = new Solution[nmrParticulas];
 		velocidade = new double[nmrParticulas][problem_.getNumberOfVariables()];
 
@@ -159,11 +160,11 @@ public class PSOAlgorithm extends Algorithm {
 
 			// Atualiza a memória de cada particula
 			for (int i = 0; i < nmrParticulas; i++) {
-				if ((particulas.get(i).getObjective(0) > localBest[i].getObjective(0))) {
+				if ((particulas.get(i).getObjective(0) < localBest[i].getObjective(0))) {
 					Solution particle = new Solution(particulas.get(i));
 					localBest[i] = particle;
 				}
-				if ((particulas.get(i).getObjective(0) > globalBest.getObjective(0))) {
+				if ((particulas.get(i).getObjective(0) < globalBest.getObjective(0))) {
 					Solution particle = new Solution(particulas.get(i));
 					globalBest = particle;
 				} 
